@@ -8,6 +8,7 @@ import Create from './pages/create/Create';
 import Login from './pages/login/Login';
 import Project from './pages/project/Project';
 import Signup from './pages/signup/Signup';
+import Navbar from './components/Navbar';
 
 function App() {
   console.log(process.env);
@@ -15,6 +16,7 @@ function App() {
     <div className='App'>
       <Router>
         <div className='container'>
+          <Navbar />
           <Switch>
             <Route exact path='/'>
               <Dashboard />

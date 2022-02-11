@@ -55,8 +55,8 @@ ul {
 }
 
 .btn:hover {
-  background-color: var(--highlight-color);
-  color: var(--secondary-color);
+  background-color: var(--btn-text);
+  color: var(--btn-color);
 }
 /* forms */
 label {
