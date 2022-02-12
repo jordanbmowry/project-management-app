@@ -1,0 +1,17 @@
+.auth-form {
+  max-width: 22.5rem;
+  margin: 3.75rem auto;
+  padding: 2.5rem;
+  border: 0.0625rem solid #ddd;
+  box-shadow: 0.1875rem 0.1875rem 0.3125rem rgba(0, 0, 0, 0.05);
+  background: #fff;
+}
+
+.auth-form input {
+  border: 1px solid #000;
+  background-color: var(--primary-color);
+}
+
+.auth-form button {
+  margin-top: 2.25rem;
+}
