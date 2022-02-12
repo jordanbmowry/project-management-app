@@ -12,6 +12,10 @@
   --error-bg-color: #fe83c6;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -87,4 +91,14 @@ textarea {
   border-radius: 0.25rem;
   padding: 0.5rem;
   margin: 0.625rem 0;
+}
+
+a.active {
+  color: var(--text-color);
+  background: var(--secondary-color);
+  border-radius: 20px 0 0 20px;
+}
+
+.active span {
+  color: var(--text-color);
 }
