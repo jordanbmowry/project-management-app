@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import { useAuthContext } from './hooks/useAuthContext';
 // styles
 import './App.css';
 
@@ -12,32 +18,40 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 
 function App() {
-  console.log(process.env);
+  const { user, authIsReady } = useAuthContext();
+
   return (
     <div className='App'>
-      <Router>
-        <Sidebar />
-        <div className='container'>
-          <Navbar />
-          <Switch>
-            <Route exact path='/'>
-              <Dashboard />
-            </Route>
-            <Route exact path='/create'>
-              <Create />
-            </Route>
-            <Route exact path='/projects/:id'>
-              <Project />
-            </Route>
-            <Route exact path='/login'>
-              <Login />
-            </Route>
-            <Route exact path='/signup'>
-              <Signup />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+      {authIsReady && (
+        <Router>
+          <Sidebar />
+          <div className='container'>
+            <Navbar />
+            <Switch>
+              <Route exact path='/'>
+                {!user && <Redirect to='/login' />}
+                {user && <Dashboard />}
+              </Route>
+              <Route exact path='/create'>
+                {!user && <Redirect to='/login' />}
+                {user && <Create />}
+              </Route>
+              <Route exact path='/projects/:id'>
+                {!user && <Redirect to='/login' />}
+                {user && <Project />}
+              </Route>
+              <Route exact path='/login'>
+                {user && <Redirect to='/' />}
+                {!user && <Login />}
+              </Route>
+              <Route exact path='/signup'>
+                {user && <Redirect to='/' />}
+                {!user && <Signup />}
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      )}
     </div>
   );
 }
