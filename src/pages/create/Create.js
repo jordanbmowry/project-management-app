@@ -1,6 +1,14 @@
 import { useState } from 'react';
+import Select from 'react-select';
 // styles
 import styles from './Create.module.css';
+
+const categories = [
+  { value: 'development', label: 'Development' },
+  { value: 'design', label: 'Design' },
+  { value: 'sales', label: 'Sales' },
+  { value: 'marketing', label: 'Marketing' },
+];
 
 export default function Create() {
   const initialState = {
@@ -11,6 +19,7 @@ export default function Create() {
   };
 
   const [formState, setFormState] = useState(initialState);
+  const [category, setCategory] = useState({});
   const [assignedUsers, setAssignedUsers] = useState([]);
 
   const handleFormChange = ({ target }) => {
@@ -23,7 +32,11 @@ export default function Create() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(formState);
+    const mergedFormState = {
+      ...formState,
+      category: category.value,
+    };
+    console.log(mergedFormState);
   };
 
   return (
@@ -58,7 +71,10 @@ export default function Create() {
           required
         />
         <label htmlFor='category'>Project category:</label>
-        {/* TODO: */}
+        <Select
+          options={categories}
+          onChange={(option) => setCategory(option)}
+        />
         <label htmlFor='AssignTo'>Assign to:</label>
         {/* TODO: */}
         <button className='btn'>Add Project</button>
