@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useCollection } from '../../hooks/useCollection';
 import Select from 'react-select';
 // styles
 import styles from './Create.module.css';
@@ -17,10 +18,22 @@ export default function Create() {
     dueDate: '',
     category: '',
   };
+  const { documents } = useCollection('users');
+  const [users, setUsers] = useState([]);
 
   const [formState, setFormState] = useState(initialState);
   const [category, setCategory] = useState({});
   const [assignedUsers, setAssignedUsers] = useState([]);
+
+  useEffect(() => {
+    if (documents) {
+      const options = documents.map((user) => ({
+        value: user,
+        label: user.displayName,
+      }));
+      setUsers(options);
+    }
+  }, [documents]);
 
   const handleFormChange = ({ target }) => {
     const { value, name } = target;
@@ -35,6 +48,7 @@ export default function Create() {
     const mergedFormState = {
       ...formState,
       category: category.value,
+      assignedUsers,
     };
     console.log(mergedFormState);
   };
@@ -70,13 +84,21 @@ export default function Create() {
           onChange={handleFormChange}
           required
         />
-        <label htmlFor='category'>Project category:</label>
-        <Select
-          options={categories}
-          onChange={(option) => setCategory(option)}
-        />
-        <label htmlFor='AssignTo'>Assign to:</label>
-        {/* TODO: */}
+        <label>
+          <span>Project category:</span>
+          <Select
+            options={categories}
+            onChange={(option) => setCategory(option)}
+          />
+        </label>
+        <label>
+          <span>Assign to:</span>
+          <Select
+            options={users}
+            onChange={(option) => setAssignedUsers(option)}
+            isMulti
+          />
+        </label>
         <button className='btn'>Add Project</button>
       </form>
     </div>
