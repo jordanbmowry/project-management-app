@@ -24,11 +24,9 @@
   width: 2.5rem;
   height: 2.5rem;
 }
-
 .user-name {
   margin-right: 0.25rem;
 }
-
 /* online users */
 .user-list .online-user {
   display: inline-block;
